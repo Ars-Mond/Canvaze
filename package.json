@@ -1,0 +1,19 @@
+{
+  "name": "canvaze",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build: web": "webpack",
+    "build: node": "tsc -p tsconfig.json  && tsc-alias -p tsconfig.json",
+    "dev-start": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json && node .",
+    "clear": "node clear.js"
+  },
+  "author": "Ars_Mond",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "ts-loader": "^9.4.2",
+    "webpack-cli": "^5.0.1"
+  }
+}
