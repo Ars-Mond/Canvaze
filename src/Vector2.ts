@@ -42,7 +42,7 @@ class Vector2 {
     };
 
     static Add = (a: Vector2, b: Vector2): Vector2 => {
-        return new Vector2(a.x - b.x, a.y - b.y);
+        return new Vector2(a.x + b.x, a.y + b.y);
     };
 
     static Sub = (a: Vector2, b: Vector2): Vector2 => {
@@ -51,6 +51,10 @@ class Vector2 {
 
     static Mul = (a: Vector2, b: number): Vector2 => {
         return new Vector2(a.x * b, a.y * b)
+    };
+
+    static Div = (a: Vector2, b: number): Vector2 => {
+        return new Vector2(a.x / b, a.y / b);
     };
 
     static Rotation = (a: Vector2, b: Quaternion): Vector2 => {

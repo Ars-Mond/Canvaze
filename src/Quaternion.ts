@@ -1,4 +1,4 @@
-export class Quaternion {
+class Quaternion {
     private angle: number;
 
     constructor(angle: number) {
