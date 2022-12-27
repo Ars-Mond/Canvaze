@@ -1,4 +1,4 @@
-class Color {
+export class Color {
     private _hexColor: number;
 
     /**
