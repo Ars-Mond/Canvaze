@@ -2,14 +2,13 @@ const path = require('path');
 
 module.exports = {
 	mode: 'production',
-	devtool: 'source-map',
 	entry: './index.ts',
 	output: {
 		path: path.resolve(__dirname, 'bundles'),
 		filename: 'Canvaze.js',
 		library: {
 			name: 'Canvaze',
-			type: 'var'
+			type: 'assign'
 		},
 		umdNamedDefine: true
 	},

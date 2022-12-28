@@ -21,6 +21,7 @@ export class Rectangle extends Entity<RectangleOption> {
 
 		if (this.option.borderColor && this.option.borderWidth && this.option.borderWidth !== 0) {
 			context.lineWidth = this.option.borderWidth;
+			context.strokeStyle = this.option.borderColor.value;
 			context.strokeRect(pos1.x, pos1.y, pos2.x, pos2.y);
 		}
 
