@@ -9,9 +9,9 @@ export class Color {
 	get value(): string {
 		if (this._a < 0xFF) {
 			let a = XMath.Map(this._a, 0x00, 0xFF, 0, 1);
-			return `rgba(${this._r}, ${this._g}, ${this._b}, ${a}`;
+			return `rgba(${this._r}, ${this._g}, ${this._b}, ${a})`;
 		} else {
-			return `rgb(${this._r}, ${this._g}, ${this._b}`;
+			return `rgb(${this._r}, ${this._g}, ${this._b})`;
 			//return this.getHash();
 		}
 	}
@@ -157,8 +157,8 @@ export class Color {
 
 	public setHSV(h: number, s: number, v: number) {
 		h = h % 360;
-		s = s % 100;
-		v = v % 100;
+		s = s / 100;
+		v = v / 100;
 		let f = (n: number, k = (n + h / 60) % 6) => {
 			return v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
 		};
@@ -168,17 +168,37 @@ export class Color {
 		this._a = 0xFF;
 	}
 
-	/*public getHSV() {
-		let r = XMath.Map(this._r, 0, 255, 0, 1);
-		console.log(r);
-		let g = XMath.Map(this._g, 0, 255, 0, 1);
-		console.log(g);
-		let b = XMath.Map(this._b, 0, 255, 0, 1);
-		console.log(b);
-		let v = Math.max(r, g, b), c = v - Math.min(r, g, b);
-		let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
-		return {H: 60 * (h < 0 ? h + 6 : h), S: v && c / v, V: v};
-	}*/
+	public getHSV() {
+		let r = this._r / 255;
+		let g = this._g / 255;
+		let b = this._b / 255;
+
+		let max = Math.max(r, g, b), min = Math.min(r, g, b);
+		let h: number = 0;
+		let s: number = 0;
+		let v: number = max;
+
+		let d = max - min;
+		s = max == 0 ? 0 : d / max;
+
+		if (max == min) {
+			h = 0;
+		} else {
+			switch (max) {
+				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+				case g: h = (b - r) / d + 2; break;
+				case b: h = (r - g) / d + 4; break;
+			}
+
+			h /= 6;
+		}
+
+		h = Math.round(360 * h);
+		s = Math.round(100 * s);
+		v = Math.round(100 * v);
+
+		return { H: h, S: s, V: v };
+	}
 
 	private _getHash(): string {
 		return '#' + ((this._r << 8 * 2) + (this._g << 8 * 1) + (this._b << 8 * 0)).toString(16);
