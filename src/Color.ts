@@ -133,6 +133,10 @@ export class Color {
 		}
 	}
 
+	private _getArray(full: boolean = false): Array<number> {
+		return full ? [this._r, this._g, this._b, this._a] : [this._r, this._g, this._b];
+	}
+
 	public getRGB() {
 		return {R: this._r, G: this._g, B: this._b};
 	}
@@ -168,6 +172,10 @@ export class Color {
 		this._a = 0xFF;
 	}
 
+	/**
+	 * The method of creating a hex color code.
+	 * @return {{H: number, S: number, V: number}| object} Hex color code.
+	 */
 	public getHSV() {
 		let r = this._r / 255;
 		let g = this._g / 255;
@@ -200,8 +208,34 @@ export class Color {
 		return { H: h, S: s, V: v };
 	}
 
-	private _getHash(): string {
-		return '#' + ((this._r << 8 * 2) + (this._g << 8 * 1) + (this._b << 8 * 0)).toString(16);
+	/**
+	 * The method of creating a hex color code.
+	 * @return {string} Hex color code.
+	 */
+	public getHash(): string {
+		let arr = this._getArray();
+		let hex: string = '#';
+		for (let ri of arr) {
+			let str = (ri & 0xFF).toString(16);
+			let temp = ['00', '0' + str, str];
+			hex += temp[str.length];
+		}
+		return hex.toUpperCase();
+	}
+
+	/**
+	 * The method of creating a hex color code with alpha.
+	 * @return {string} Hex color code with alpha.
+	 */
+	public getAlphaHash(): string {
+		let arr = this._getArray(true);
+		let hex: string = '#';
+		for (let ri of arr) {
+			let str = (ri & 0xFF).toString(16);
+			let temp = ['00', '0' + str, str];
+			hex += temp[str.length];
+		}
+		return hex.toUpperCase();
 	}
 }
 
