@@ -216,9 +216,7 @@ export class Color {
 		let arr = this._getArray();
 		let hex: string = '#';
 		for (let ri of arr) {
-			let str = (ri & 0xFF).toString(16);
-			let temp = ['00', '0' + str, str];
-			hex += temp[str.length];
+			hex += (ri & 0xFF).toString(16).padStart(2, '0');
 		}
 		return hex.toUpperCase();
 	}

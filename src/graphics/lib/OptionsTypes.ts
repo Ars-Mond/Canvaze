@@ -27,3 +27,7 @@ export interface CircleOption extends GraphicOption {
 export interface RectangleOption extends GraphicOption {
 	size: Vector2;
 }
+
+export interface LineOption extends GraphicOption {
+	points: Array<Vector2>;
+}
